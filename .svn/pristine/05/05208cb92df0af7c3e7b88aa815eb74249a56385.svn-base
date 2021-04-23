@@ -1,0 +1,88 @@
+package com.agaram.eln.primary.controller.multitenant;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.agaram.eln.primary.model.multitenant.DataSourceConfig;
+import com.agaram.eln.primary.model.notification.Email;
+import com.agaram.eln.primary.service.multitenant.DatasourceService;
+
+@RestController
+@RequestMapping(value="/multitenant", method=RequestMethod.POST)
+public class DatasourceController {
+	
+	@Autowired
+	private DatasourceService datasourceService;
+	
+	@PostMapping("/Validatetenant")
+	public DataSourceConfig Validatetenant(@RequestBody DataSourceConfig Tenantname)
+	{
+		return datasourceService.Validatetenant(Tenantname);
+	}
+	
+	@PostMapping("/Registertenant")
+	public DataSourceConfig Registertenant(@RequestBody DataSourceConfig Tenantname) throws MessagingException
+	{
+		return datasourceService.Registertenant(Tenantname);
+	}
+
+	@PostMapping("/Getalltenant")
+	public List<DataSourceConfig> Getalltenant(@RequestBody DataSourceConfig Tenantname)
+	{
+		return datasourceService.Getalltenant();
+	}
+	
+	@PostMapping("/Gettenantonid")
+	public DataSourceConfig Gettenantonid(@RequestBody DataSourceConfig Tenant)
+	{
+		return datasourceService.Gettenantonid(Tenant);
+	}
+	
+	@PostMapping("/Updatetenant")
+	public DataSourceConfig Updatetenant(@RequestBody DataSourceConfig Tenant)
+	{
+		return datasourceService.Updatetenant(Tenant);
+	}
+	
+	@PostMapping("/Initiatetenant")
+	public DataSourceConfig Initiatetenant(@RequestBody DataSourceConfig Tenant)
+	{
+		return datasourceService.Initiatetenant(Tenant);
+	}
+	
+	@PostMapping("/Updaprofiletetenant")
+	public int Updaprofiletetenant(@RequestBody DataSourceConfig Tenant)
+	{
+		return datasourceService.Updaprofiletetenant(Tenant);
+	}
+	
+	
+	@PostMapping("/tenantadministratorlogin")
+	public Map<String, Object> tenantadministratorlogin(@RequestBody Map<String,Object> obj)
+	{
+		
+		return datasourceService.tenantadministratorlogin(obj);
+		
+	}
+
+	@PostMapping("/checktenantid")
+	public Map<String, Object> checktenantid(@RequestBody DataSourceConfig DataSourceConfig) throws MessagingException {
+	
+		return datasourceService.checktenantid(DataSourceConfig);
+	}
+	@PostMapping("/tenantlogin")
+	public DataSourceConfig tenantlogin(@RequestBody DataSourceConfig objtenant) throws MessagingException {
+		
+	
+		return datasourceService.tenantlogin(objtenant);
+	}
+}

@@ -1,0 +1,10 @@
+package com.agaram.eln.primary.repository.protocol;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.agaram.eln.primary.model.protocols.LSprotocolworkflowhistory;
+
+
+public interface LSprotocolworkflowhistoryRepository extends JpaRepository<LSprotocolworkflowhistory, Integer>{
+
+}
