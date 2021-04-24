@@ -125,52 +125,46 @@ public class ProtocolService {
 			@SuppressWarnings("unchecked")
 			List<LSprotocolmaster> LSprotocolmasterLst = (List<LSprotocolmaster>) getLSProtocolMasterLst(argObj).get("LSProtocolMasterLst");
 			
-//			Integer isMulitenant = (Integer) argObj.get("ismultitenant");
-//			
-//			if(LSprotocolmasterLst.size() > 0) {
-//				List<LSprotocolstep> LSprotocolstepLst = LSProtocolStepRepositoryObj.findByProtocolmastercodeAndStatus(LSprotocolmasterLst.get(0).getProtocolmastercode(), 1);
-//				for(LSprotocolstep LSprotocolstepObj: LSprotocolstepLst) {
-//
-//					if(isMulitenant == 1) {
-//						CloudLSprotocolstepInfo newLSprotocolstepInfo = CloudLSprotocolstepInfoRepository.findById(LSprotocolstepObj.getProtocolstepcode());
-//						if(newLSprotocolstepInfo != null) {
-//							LSprotocolstepObj.setLsprotocolstepInfo(newLSprotocolstepInfo.getLsprotocolstepInfo());
-//						}
-//					}
-//					else {
-//						LSprotocolstepInfo LSprotocolstepInfoObj = mongoTemplate.findById(LSprotocolstepObj.getProtocolstepcode(), LSprotocolstepInfo.class);
-//						if(LSprotocolstepInfoObj != null) {
-//							LSprotocolstepObj.setLsprotocolstepInfo(LSprotocolstepInfoObj.getContent());
-//						}
-//					}
-////					LSprotocolstepInfo LSprotocolstepInfoObj = mongoTemplate.findById(LSprotocolstepObj.getProtocolstepcode(), LSprotocolstepInfo.class);
-////					if(LSprotocolstepInfoObj != null) {
-////						LSprotocolstepObj.setLsprotocolstepInfo(LSprotocolstepInfoObj.getContent());
-////					}
-//				}
-//				LSprotocolmasterLst = LSprotocolmasterLst.stream()
-//						.distinct().collect(Collectors.toList());
-//				
-//				Collections.sort(LSprotocolmasterLst, Collections.reverseOrder());
-//				
-//				mapObj.put("protocolmasterLst", LSprotocolmasterLst);
-////				mapObj.put("protocolstepLst", LSprotocolstepLst);
-//				mapObj.put("protocolstepLst", new ArrayList<>());
-//			}else {
-//				LSprotocolmasterLst = LSprotocolmasterLst.stream()
-//						.distinct().collect(Collectors.toList());
-//				
-//				Collections.sort(LSprotocolmasterLst, Collections.reverseOrder());
-//				
-//				mapObj.put("protocolmasterLst", LSprotocolmasterLst);
-//				mapObj.put("protocolstepLst", new ArrayList<>());
-//			}
-			mapObj.put("protocolmasterLst", LSprotocolmasterLst);
-			LSprotocolmasterLst = LSprotocolmasterLst.stream()
-					.distinct().collect(Collectors.toList());
+			Integer isMulitenant = (Integer) argObj.get("ismultitenant");
 			
-			Collections.sort(LSprotocolmasterLst, Collections.reverseOrder());
-			mapObj.put("protocolstepLst", new ArrayList());
+			if(LSprotocolmasterLst.size() > 0) {
+				List<LSprotocolstep> LSprotocolstepLst = LSProtocolStepRepositoryObj.findByProtocolmastercodeAndStatus(LSprotocolmasterLst.get(0).getProtocolmastercode(), 1);
+				for(LSprotocolstep LSprotocolstepObj: LSprotocolstepLst) {
+
+					if(isMulitenant == 1) {
+						CloudLSprotocolstepInfo newLSprotocolstepInfo = CloudLSprotocolstepInfoRepository.findById(LSprotocolstepObj.getProtocolstepcode());
+						if(newLSprotocolstepInfo != null) {
+							LSprotocolstepObj.setLsprotocolstepInfo(newLSprotocolstepInfo.getLsprotocolstepInfo());
+						}
+					}
+					else {
+						LSprotocolstepInfo LSprotocolstepInfoObj = mongoTemplate.findById(LSprotocolstepObj.getProtocolstepcode(), LSprotocolstepInfo.class);
+						if(LSprotocolstepInfoObj != null) {
+							LSprotocolstepObj.setLsprotocolstepInfo(LSprotocolstepInfoObj.getContent());
+						}
+					}
+//					LSprotocolstepInfo LSprotocolstepInfoObj = mongoTemplate.findById(LSprotocolstepObj.getProtocolstepcode(), LSprotocolstepInfo.class);
+//					if(LSprotocolstepInfoObj != null) {
+//						LSprotocolstepObj.setLsprotocolstepInfo(LSprotocolstepInfoObj.getContent());
+//					}
+				}
+				LSprotocolmasterLst = LSprotocolmasterLst.stream()
+						.distinct().collect(Collectors.toList());
+				
+				Collections.sort(LSprotocolmasterLst, Collections.reverseOrder());
+				
+				mapObj.put("protocolmasterLst", LSprotocolmasterLst);
+				mapObj.put("protocolstepLst", LSprotocolstepLst);
+			}else {
+				LSprotocolmasterLst = LSprotocolmasterLst.stream()
+						.distinct().collect(Collectors.toList());
+				
+				Collections.sort(LSprotocolmasterLst, Collections.reverseOrder());
+				
+				mapObj.put("protocolmasterLst", LSprotocolmasterLst);
+				mapObj.put("protocolstepLst", new ArrayList<>());
+			}
+		
 		return mapObj;
 	}
 	
