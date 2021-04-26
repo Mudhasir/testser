@@ -185,8 +185,23 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
+			<plugin> 
+			  <groupId>com.microsoft.azure</groupId>  
+			  <artifactId>azure-webapp-maven-plugin</artifactId>  
+			  <version>1.12.0</version>  
+			  <configuration>
+			   <!-- Web App information -->
+			   <resourceGroup>your-resource-group</resourceGroup>
+			   <appName>your-app-name</appName>
+			             
+			   <!-- Java Running Stack for Web App on Linux-->
+			   <linuxRuntime>tomcat 8.5-jre8</linuxRuntime>
+			 
+			   <!-- Deployment Type -->
+			   <deploymentType>war</deploymentType>
+			  </configuration>
+			</plugin> 
 		</plugins>
-
 	</build>
 
 </project>
