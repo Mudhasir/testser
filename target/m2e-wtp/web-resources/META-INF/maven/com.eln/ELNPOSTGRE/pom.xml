@@ -199,6 +199,17 @@
 			 
 			   <!-- Deployment Type -->
 			   <deploymentType>war</deploymentType>
+			   
+			    <deployment>
+			      <resources>
+			        <resource>
+			          <directory>${project.basedir}/target</directory>
+			          <includes>
+			            <include>*.war</include>
+			          </includes>
+			        </resource>
+			      </resources>
+			    </deployment>
 			  </configuration>
 			</plugin> 
 		</plugins>
