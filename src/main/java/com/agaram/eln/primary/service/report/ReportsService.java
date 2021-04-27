@@ -190,7 +190,12 @@ public class ReportsService {
 			filePath = env.getProperty("DocsPath");
 		}
 		if (filePath == "") {
-			filePath = new File("").getAbsolutePath() + "/webapps/ROOT/ELNdocuments";
+			if(System.getProperty("os.name") == "Linux") {
+				filePath = new File("").getAbsolutePath() + "/webapps/ROOT/ELNdocuments";
+			}else {
+				System.out.print("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
+				filePath = new File("").getAbsolutePath().toString() + "/webapps/ELNdocuments";
+			}
 		} 
 		File newFile = new File(filePath);
 		if (!newFile.exists()) {
@@ -455,6 +460,7 @@ public class ReportsService {
 	}
 	
 	public Map<String, Object> getDownloadReportsInitRequest(Map<String, Object> argObj) {
+		System.out.println(System.getProperty("os.name"));
 		Map<String, Object> rtnObj = new HashMap<String, Object>();
 		LScfttransaction LScfttransactionobj = new LScfttransaction();
 		if (argObj.containsKey("objsilentaudit")) {
