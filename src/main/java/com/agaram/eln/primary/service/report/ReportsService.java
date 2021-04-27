@@ -193,7 +193,8 @@ public class ReportsService {
 			if(System.getProperty("os.name") == "Linux") {
 				filePath = new File("").getAbsolutePath() + "/webapps/ROOT/ELNdocuments";
 			}else {
-				System.out.print("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
+//				System.out.print("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
+				logger.info("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
 				filePath = new File("").getAbsolutePath().toString() + "/webapps/ELNdocuments";
 			}
 		} 
