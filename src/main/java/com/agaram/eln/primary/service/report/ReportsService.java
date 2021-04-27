@@ -186,14 +186,14 @@ public class ReportsService {
 	private String getDocxAbsolutePath() {
 //		LSConfiguration objLSConfiguration = ObjConfigurationService.getConfigurationForDocsPath();
 		String filePath = "";
-		if(env.getProperty("DocsPath") != null && env.getProperty("DocsPath") != "") {
-			filePath = env.getProperty("DocsPath");
-		}
 		if (filePath == "") {
-			if(System.getProperty("os.name") == "Linux") {
+			if(System.getProperty("os.name").equals("Linux")) {
 				System.out.print("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
-				filePath = "/home/site/wwwroot/webapps/ELNdocuments";
+				filePath = "/site/wwwroot/webapps/ELNdocuments";
 			}else {
+				if(env.getProperty("DocsPath") != null && env.getProperty("DocsPath") != "") {
+					filePath = env.getProperty("DocsPath");
+				}
 				filePath = new File("").getAbsolutePath() + "/webapps/ROOT/ELNdocuments";
 			}
 		} 
