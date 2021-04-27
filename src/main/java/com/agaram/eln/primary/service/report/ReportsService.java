@@ -387,10 +387,11 @@ public class ReportsService {
 			} else if(FileType.equals("url")) {
 				String fileContent = new BufferedReader(new InputStreamReader(stream)).lines()
 						.collect(Collectors.joining("\n"));
-				logger.info(fileContent);
+				logger.info("checkLinkAvail() fileContent:" + fileContent);
 				if (fileContent.equals("working")) {
 					status = true;
 					String filePath = getDocxAbsolutePath() + "/link.txt";
+					logger.info("checkLinkAvail() filePath:" + filePath);
 					File linkFile = new File(filePath);
 					if (linkFile.exists()) {
 						fileContent = new BufferedReader(new InputStreamReader(new FileInputStream(linkFile))).lines()
