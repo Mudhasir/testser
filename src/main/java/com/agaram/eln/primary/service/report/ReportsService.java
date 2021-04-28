@@ -393,6 +393,7 @@ public class ReportsService {
 					String filePath = getDocxAbsolutePath() + "/link.txt";
 					logger.info("checkLinkAvail() filePath:" + filePath);
 					File linkFile = new File(filePath);
+					logger.info("checkLinkAvail() linkFile.exists() :" + linkFile.exists());
 					if (linkFile.exists()) {
 						fileContent = new BufferedReader(new InputStreamReader(new FileInputStream(linkFile))).lines()
 									.collect(Collectors.joining("\n"));
