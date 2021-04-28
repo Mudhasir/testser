@@ -240,7 +240,7 @@ public class ReportsService {
 				client.setAutodetectUTF8(true);
 				logger.info("handleFTP() FTP connection Status: " + client.isConnected());
 				String filePath = getDocxAbsolutePath();
-				File absolutePathFile = new File(filePath + "\\" + filename);
+				File absolutePathFile = new File(filePath + "/" + filename);
 				if (type.equals("load")) {
 					FTPFile[] FileLst = client.listFiles();
 					FTPFile sFTPFile = new FTPFile();
@@ -554,13 +554,13 @@ public class ReportsService {
 				}
 			}
 			if (docType == 1) {
-				filePath += "\\templates";
+				filePath += "/templates";
 			}
 			File newFile = new File(filePath);
 			if(!newFile.exists()) {
 				newFile.mkdir();
 			}
-			newFile = new File(filePath + "\\" + filename);
+			newFile = new File(filePath + "/" + filename);
 			FileOutputStream fos = new FileOutputStream(newFile);
 			new XWPFDocument().write(fos);
 			fos.close();
@@ -631,7 +631,7 @@ public class ReportsService {
 	@SuppressWarnings({ "unchecked" })
 	public void saveDocxsReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(request.getInputStream()).useDelimiter("\\A");
+		Scanner scanner = new Scanner(request.getInputStream()).useDelimiter("/A");
 		String body = scanner.hasNext() ? scanner.next() : "";
 		JSONObject jsonObj = null;
 		PrintWriter writer = response.getWriter();
@@ -654,7 +654,7 @@ public class ReportsService {
 				LSdocreports LSDocReportsObj = LSdocreportsRepositoryObj.findFirstByFileHashNameAndStatus(sKey, 1);
 				if (LSDocReportsObj != null) {
 					if (LSDocReportsObj.getIsTemplate() == 1) {
-						filePath += "\\templates";
+						filePath += "/templates";
 						if (!(new File(filePath)).exists()) {
 							(new File(filePath)).mkdir();
 						}
@@ -666,7 +666,7 @@ public class ReportsService {
 							LScfttransactionobj.setComments("Saving document : " + LSDocReportsObj.getFileName());
 					}
 				}
-				originalFilePath = filePath + "\\" + sKey + ".docx";
+				originalFilePath = filePath + "/" + sKey + ".docx";
 				if (LSDocReportsObj.getFileName() == null && (int) jsonObj.get("status") == 2) {
 					List<LSdocreports> LSDocReportsLst = LSdocreportsRepositoryObj.findByIsdraftAndStatus(1, 1);
 					LSdocdirectory LSdocdirectoryObj = LSdocdirectoryRepositoryObj
@@ -775,7 +775,7 @@ public class ReportsService {
 					if (LSDocReportsObj != null) {
 						if (LSDocReportsObj.getFileName() == null) {
 							filePath = getDocxAbsolutePath();
-							File toBeDeleted = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+							File toBeDeleted = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 							logger.info(
 									"saveDocxsReport() > status:4 to be Deleted path:" + toBeDeleted.getAbsolutePath());
 							if (toBeDeleted.exists()) {
@@ -786,7 +786,7 @@ public class ReportsService {
 							}
 						} else {
 							if(LSDocReportsObj.getIsreport() == 1 && LSDocReportsObj.getStreamid() == null) {
-								File newFile = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+								File newFile = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 								if(newFile.exists()) {
 									InputStream fis = new FileInputStream(newFile);
 									Map<String, Object> FileInfo = new HashMap<String, Object>();
@@ -802,7 +802,7 @@ public class ReportsService {
 									}
 								}
 							}else {
-								File newFile = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+								File newFile = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 								if(newFile.exists()) {
 									newFile.delete();
 									logger.info("saveDocxsReport() > status:4 Deleted Name:" + LSDocReportsObj.getFileName());
@@ -824,7 +824,7 @@ public class ReportsService {
 
 	public void cloudsaveDocxsReport(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		@SuppressWarnings("resource")
-		Scanner scanner = new Scanner(request.getInputStream()).useDelimiter("\\A");
+		Scanner scanner = new Scanner(request.getInputStream()).useDelimiter("/A");
 		String body = scanner.hasNext() ? scanner.next() : "";
 		JSONObject jsonObj = null;
 		PrintWriter writer = response.getWriter();
@@ -847,7 +847,7 @@ public class ReportsService {
 				LSdocreports LSDocReportsObj = LSdocreportsRepositoryObj.findFirstByFileHashNameAndStatus(sKey, 1);
 				if (LSDocReportsObj != null) {
 					if (LSDocReportsObj.getIsTemplate() == 1) {
-						filePath += "\\templates";
+						filePath += "/templates";
 						if (!(new File(filePath)).exists()) {
 							(new File(filePath)).mkdir();
 						}
@@ -859,7 +859,7 @@ public class ReportsService {
 							LScfttransactionobj.setComments("Saving document : " + LSDocReportsObj.getFileName());
 					}
 				}
-				originalFilePath = filePath + "\\" + sKey + ".docx";
+				originalFilePath = filePath + "/" + sKey + ".docx";
 				if (LSDocReportsObj.getFileName() == null && (int) jsonObj.get("status") == 2) {
 					List<LSdocreports> LSDocReportsLst = LSdocreportsRepositoryObj.findByIsdraftAndStatus(1, 1);
 					LSdocdirectory LSdocdirectoryObj = LSdocdirectoryRepositoryObj
@@ -971,7 +971,7 @@ public class ReportsService {
 					if (LSDocReportsObj != null) {
 						if (LSDocReportsObj.getFileName() == null) {
 							filePath = getDocxAbsolutePath();
-							File toBeDeleted = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+							File toBeDeleted = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 							logger.info(
 									"saveDocxsReport() > status:4 to be Deleted path:" + toBeDeleted.getAbsolutePath());
 							if (toBeDeleted.exists()) {
@@ -982,7 +982,7 @@ public class ReportsService {
 							}
 						} else {
 							if(LSDocReportsObj.getIsreport() == 1 && LSDocReportsObj.getStreamid() == null) {
-								File newFile = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+								File newFile = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 								if(newFile.exists()) {
 									InputStream fis = new FileInputStream(newFile);
 									Map<String, Object> FileInfo = new HashMap<String, Object>();
@@ -998,7 +998,7 @@ public class ReportsService {
 									}
 								}
 							}else {
-								File newFile = new File(filePath + "\\" + jsonObj.get("key") + ".docx");
+								File newFile = new File(filePath + "/" + jsonObj.get("key") + ".docx");
 								if(newFile.exists()) {
 									newFile.delete();
 									logger.info("saveDocxsReport() > status:4 Deleted Name:" + LSDocReportsObj.getFileName());
@@ -1152,10 +1152,10 @@ public class ReportsService {
 						LSDocReportObj.setFileHashName(saveAsHashKey);
 						LSdocreportsRepositoryObj.save(LSDocReportObj);
 						if (LSDocReportObj.getIsTemplate() == 1) {
-							filePath += "\\templates";
+							filePath += "/templates";
 						}
-						File oldFile = new File(filePath + "\\" + haskKey + ".docx");
-						newFile = new File(filePath + "\\" + saveAsHashKey + ".docx");
+						File oldFile = new File(filePath + "/" + haskKey + ".docx");
+						newFile = new File(filePath + "/" + saveAsHashKey + ".docx");
 						FileInputStream fis = new FileInputStream(oldFile);
 						FileOutputStream fos = new FileOutputStream(newFile);
 						XWPFDocument document = new XWPFDocument(fis);
@@ -1175,7 +1175,7 @@ public class ReportsService {
 								+ " where docReportsCode: " + LSDocReportObj.getDocReportsCode());
 						LSdocreportsRepositoryObj.save(LSDocReportObj);
 						savedSuccessfully = true;
-						newFile = new File(filePath + "\\" + haskKey + ".docx");
+						newFile = new File(filePath + "/" + haskKey + ".docx");
 					}
 					if (savedSuccessfully) {
 						if (obj.containsKey("objsilentaudit")) {
@@ -1532,12 +1532,12 @@ public class ReportsService {
 //			if (canLoad) {
 				String filePath = getDocxAbsolutePath();
 				if (lSdocreportsObj.getIsTemplate() == 1 && !isftpAvailable()) {
-					filePath += "\\templates";
+					filePath += "/templates";
 				}
 				boolean filePresent = false;
 				File directory = new File(filePath);
 				if (directory.exists()) {
-					File requestedFile = new File(filePath + "\\" + HashKey + ".docx");
+					File requestedFile = new File(filePath + "/" + HashKey + ".docx");
 					if (!requestedFile.exists()) {
 						Map<String, Object> fileInfo = new HashMap<String, Object>();
 						fileInfo.put("id", lSdocreportsObj.getStreamid());
@@ -1626,9 +1626,9 @@ public class ReportsService {
 			String FileName = "";
 			if (((String) obj.get("onlyOfficeDocxName")).length() > 0) {
 				if (((String) obj.get("onlyOfficeDocxName")).contains("/")) {
-					FileName = (((String) obj.get("onlyOfficeDocxName")).split("/")[1]).split("\\.")[0];
+					FileName = (((String) obj.get("onlyOfficeDocxName")).split("/")[1]).split("/.")[0];
 				} else {
-					FileName = ((String) obj.get("onlyOfficeDocxName")).split("\\.")[0];
+					FileName = ((String) obj.get("onlyOfficeDocxName")).split("/.")[0];
 				}
 			} else {
 				FileName = (String) obj.get("Hashkey");
@@ -1660,9 +1660,9 @@ public class ReportsService {
 				NewFileName = NewHashKey;
 			}
 			logger.info("updateDocxReportOrder() NewFileName " + NewFileName);
-			if ((new File(filePath + "\\" + FileName + ".docx")).exists() && !FileName.equals(NewFileName)) {
-				File oldFile = new File(filePath + "\\" + FileName + ".docx");
-				newFile = new File(filePath + "\\" + NewFileName + ".docx");
+			if ((new File(filePath + "/" + FileName + ".docx")).exists() && !FileName.equals(NewFileName)) {
+				File oldFile = new File(filePath + "/" + FileName + ".docx");
+				newFile = new File(filePath + "/" + NewFileName + ".docx");
 				oldFile.renameTo(newFile);
 				logger.info("updateDocxReportOrder() exists newFile " + newFile);
 				if (oldFile.exists()) {
@@ -1670,12 +1670,12 @@ public class ReportsService {
 					logger.info("updateDocxReportOrder() deleted old File " + oldFile);
 				}
 			} else {
-				newFile = new File(filePath + "\\" + NewFileName + ".docx");
+				newFile = new File(filePath + "/" + NewFileName + ".docx");
 				if (!newFile.exists()) {
 					FileOutputStream fos = new FileOutputStream(newFile);
 					new XWPFDocument().write(fos);
 					fos.close();
-					File oldFile = new File(filePath + "\\" + FileName + ".docx");
+					File oldFile = new File(filePath + "/" + FileName + ".docx");
 					if (oldFile.exists()) {
 						oldFile.delete();
 						logger.info("updateDocxReportOrder() deleted old File " + oldFile);
@@ -1740,7 +1740,7 @@ public class ReportsService {
 			String HashKey = UUID.randomUUID().toString();
 			if (lstSelectedData.size() == 1) {
 				fileName = templateName + "_" + lstSelectedData.get(0).getBatchid();
-				newFile = new File(filePath + "\\" + fileName + ".docx");
+				newFile = new File(filePath + "/" + fileName + ".docx");
 				if (newFile.exists()) {
 					fileName = HashKey;
 				}
@@ -1748,7 +1748,7 @@ public class ReportsService {
 				fileName = HashKey;
 			}
 			logger.info("handleOrderandTemplate() fileName: " + fileName);
-			File loadFile = new File(filePath + "\\" + templateName + ".docx");
+			File loadFile = new File(filePath + "/" + templateName + ".docx");
 			if (!loadFile.exists()) {
 				if (isftpAvailable()) {
 					Map<String, Object> FTPStatus = handleFTP(templateName, "load", "templates");
@@ -1756,7 +1756,7 @@ public class ReportsService {
 						fileLoaded = true;
 					}
 				} else {
-					loadFile = new File(filePath + "\\templates\\" + templateName + ".docx");
+					loadFile = new File(filePath + "/templates/" + templateName + ".docx");
 					if (loadFile.exists()) {
 						fileLoaded = true;
 					} else {
@@ -1767,7 +1767,7 @@ public class ReportsService {
 				fileLoaded = true;
 			}
 			if (fileLoaded) {
-				newFile = new File(filePath + "\\" + fileName + ".docx");
+				newFile = new File(filePath + "/" + fileName + ".docx");
 				FileInputStream fis = new FileInputStream(loadFile);
 				XWPFDocument document = new XWPFDocument(fis);
 				logger.info("handleOrderandTemplate() Reading Paragraphs Done");
@@ -1862,7 +1862,7 @@ public class ReportsService {
 						fileName += "0";
 					}
 					fileName += (LSdocreportsLst.size() + 1);
-					newFile = new File(filePath + "\\" + fileName + ".docx");
+					newFile = new File(filePath + "/" + fileName + ".docx");
 					if (newFile.exists()) {
 						fileName = HashKey;
 					}
@@ -1870,11 +1870,11 @@ public class ReportsService {
 					fileName = HashKey;
 				}
 				logger.info("handleOrderandTemplate() fileName: " + fileName);
-				File loadFile = new File(filePath + "\\templates");
+				File loadFile = new File(filePath + "/templates");
 				if(!loadFile.exists()) {
 					loadFile.mkdir();
 				}
-				loadFile = new File(filePath + "\\templates\\" + templateHashName + ".docx");
+				loadFile = new File(filePath + "/templates/" + templateHashName + ".docx");
 				if (!loadFile.exists()) {
 					Map<String, Object> fileInfo = new HashMap<String, Object>();
 					fileInfo.put("id", LSdocreportsObj.getStreamid());
@@ -1901,7 +1901,7 @@ public class ReportsService {
 					fileLoaded = true;
 				}
 				if (fileLoaded) {
-					newFile = new File(filePath + "\\" + HashKey + ".docx");
+					newFile = new File(filePath + "/" + HashKey + ".docx");
 					FileInputStream fis = new FileInputStream(loadFile);
 					XWPFDocument document = new XWPFDocument(fis);
 					logger.info("handleOrderandTemplate() Reading Paragraphs Done");
@@ -2928,12 +2928,12 @@ public class ReportsService {
 			FIleVersionName = hashKey;
 		}
 		if (LSdocreportsObj.getIsTemplate() == 1) {
-			filePath += "\\templates";
+			filePath += "/templates";
 			if (!(new File(filePath)).exists()) {
 				(new File(filePath)).mkdir();
 			}
 		}
-		String originalFilePath = filePath + "\\" + FIleVersionName + ".docx";
+		String originalFilePath = filePath + "/" + FIleVersionName + ".docx";
 		File vFile = new File(originalFilePath);
 		objMap.put("fileFullPath", vFile.getAbsolutePath());
 		objMap.put("fileName", LSdocreportsObj.getFileName() + ".docx");
