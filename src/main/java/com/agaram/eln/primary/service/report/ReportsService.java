@@ -187,7 +187,7 @@ public class ReportsService {
 //		LSConfiguration objLSConfiguration = ObjConfigurationService.getConfigurationForDocsPath();
 		String filePath = "";
 		if (filePath == "") {
-			if(System.getProperty("os.name").equals("Linux")) {
+			if(System.getProperty("os.name").contains("Linux")) {
 				System.out.print("reportgetAbsolutePath()" + new File("").getAbsolutePath().toString());
 				filePath = "/home/site/wwwroot/webapps/ELNdocuments";
 			}else {
